@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     try:
         #Get bucket object when uploaded
         response = s3.get_object(Bucket=bucket, Key=key)
-        print("EVENT ----", response)
+        print("EVENT --", response)
         print("CONTENT TYPE: " + response['ContentType'])
         
         # print(response['x-amz-meta-customlabels'])
