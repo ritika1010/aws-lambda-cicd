@@ -13,10 +13,10 @@ phases:
       - zip -r9 ../deployment_package1.zip .
       - zip -r9 ../deployment_package2.zip .
       - cd ..
-      - mv index-images-cf-7.py lambda_function.py
+      - mv index-images.py lambda_function.py
       - zip -g deployment_package1.zip lambda_function.py
       - mv lambda_function.py index-images.py
-      - mv search-images-cf-7.py lambda_function.py
+      - mv search-images.py lambda_function.py
       - zip -g deployment_package2.zip lambda_function.py
       - mv lambda_function.py search-images.py
   post_build:
