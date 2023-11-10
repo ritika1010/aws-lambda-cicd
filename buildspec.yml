@@ -10,11 +10,18 @@ phases:
     commands:
       - echo "Zipping deployment package..."
       - cd lib
-      - zip -r9 ../deployment_package.zip .
+      - zip -r9 ../deployment_package1.zip .
+      - zip -r9 ../deployment_package2.zip .
       - cd ..
-      - zip -g deployment_package.zip index/lambda_function.py
+      - mv index-images-cf-7.py lambda_function.py
+      - zip -g deployment_package1.zip lambda_function.py
+      - mv lambda_function.py index-images.py
+      - mv search-images-cf-7.py lambda_function.py
+      - zip -g deployment_package2.zip lambda_function.py
+      - mv lambda_function.py search-images.py
   post_build:
     commands:
       - echo "Updating lambda Function..."
-      - aws lambda update-function-code --function-name index-images --zip-file fileb://deployment_package.zip
+      - aws lambda update-function-code --function-name index-images --zip-file fileb://deployment_package1.zip
+      - aws lambda update-function-code --function-name search-images --zip-file fileb://deployment_package2.zip
       - echo "DONE!!"
