@@ -2,11 +2,19 @@ import json
 import urllib.parse
 import boto3
 rekognition = boto3.client('rekognition')
-
-print('Loading function')
+from botocore.exceptions import ClientError
+import os
+import boto3
+from opensearchpy import OpenSearch, RequestsHttpConnection
+from requests_aws4auth import AWS4Auth
 
 s3 = boto3.client('s3')
 
+REGION = 'us-east-1'
+HOST = 'search-photos-v1-ipvcdd53gpgk4q3fegqioz7f4m.us-east-1.es.amazonaws.com'
+INDEX = 'images'
+MASTER_USER = 'master'
+MASTER_PASSWORD = 'Master@123'
 
 def lambda_handler(event, context):
     #print("Received event: " + json.dumps(event, indent=2))
@@ -102,26 +110,13 @@ def insert_os(data):
     else:
         print("Failed to insert data")
 
-from botocore.exceptions import ClientError
-
-import os
-
-import boto3
-from opensearchpy import OpenSearch, RequestsHttpConnection
-from requests_aws4auth import AWS4Auth
-
-
-REGION = 'us-east-1'
-HOST = 'search-images-s5gkffqwg5yhsfednmdbnxtkze.us-east-1.es.amazonaws.com'
-INDEX = 'images'
-
 def query(data):
     # q = {'size': 5, 'query': {'multi_match': {'query': term}}}
     client = OpenSearch(hosts=[{
         'host': HOST,
         'port': 443
     }],
-                        http_auth=get_awsauth(REGION, 'es'),
+                        http_auth=(MASTER_USER, MASTER_PASSWORD),
                         use_ssl=True,
                         verify_certs=True,
                         connection_class=RequestsHttpConnection)
