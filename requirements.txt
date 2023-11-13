@@ -1,4 +1,4 @@
 requests
 requests-aws4auth
 elasticsearch==7.13.4
-opensearchpy
+opensearch-py
