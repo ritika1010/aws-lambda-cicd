@@ -7,7 +7,7 @@ from opensearchpy import OpenSearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 REGION = 'us-east-1'
-HOST = 'search-images-s5gkffqwg5yhsfednmdbnxtkze.us-east-1.es.amazonaws.com'
+HOST = 'search-photos-v1-ipvcdd53gpgk4q3fegqioz7f4m.us-east-1.es.amazonaws.com'
 INDEX = 'images'
 
 s3 = boto3.client('s3')
