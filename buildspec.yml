@@ -5,7 +5,8 @@ phases:
       python: 3.8
     commands:
       - echo "Installing dependencies..."
-      - pip3 install --target ./package requests-aws4auth opensearch-py -t lib
+      - pip install -r requirements.txt -t lib
+      # - pip3 install --target ./package requests-aws4auth opensearch-py -t lib
   build:
     commands:
       - echo "Zipping deployment package..."
