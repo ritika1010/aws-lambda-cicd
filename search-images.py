@@ -7,10 +7,8 @@ from opensearchpy import OpenSearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
 
 REGION = 'us-east-1'
-HOST = 'search-photos-v1-ipvcdd53gpgk4q3fegqioz7f4m.us-east-1.es.amazonaws.com'
+HOST = 'search-images-s5gkffqwg5yhsfednmdbnxtkze.us-east-1.es.amazonaws.com'
 INDEX = 'images'
-MASTER_USER = 'master'
-MASTER_PASSWORD = 'Master@123'
 
 s3 = boto3.client('s3')
 client = boto3.client('lexv2-runtime')
@@ -130,7 +128,7 @@ def query(term):
         'host': HOST,
         'port': 443
     }],
-                        http_auth=(MASTER_USER, MASTER_PASSWORD),,
+                        http_auth=get_awsauth(REGION, 'es'),
                         use_ssl=True,
                         verify_certs=True,
                         connection_class=RequestsHttpConnection)
